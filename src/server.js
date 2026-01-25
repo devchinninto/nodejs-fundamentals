@@ -22,10 +22,10 @@ const server = http.createServer((req, res) => {
       name: 'John Doe',
       email: 'email@example.com'
     })
-    return res.end('New user.')
+    return res.writeHead(201).end()
   }
   
-  return res.end('Hello, world!')
+  return res.writeHead(404).end()
 })
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}!`))
