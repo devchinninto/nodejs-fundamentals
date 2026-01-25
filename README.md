@@ -1,0 +1,1 @@
+Understanding the Node.js ecosystem and internal mechanics before using frameworks—specifically, how Node.js operates under the hood.
