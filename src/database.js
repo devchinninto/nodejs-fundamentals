@@ -1,0 +1,40 @@
+import fs from 'node:fs/promises'
+
+const databasePath = new URL('../db.json', import.meta.url)
+
+export class Database {
+  #database = {}
+
+  constructor() {
+    fs.readFile(databasePath, 'utf-8').then(data => {
+      this.#database = JSON.parse(data)
+    }).catch(() => {
+      this.#persist()
+    })
+  }
+
+  #persist() {
+    // writeFile only accepts strings.
+    fs.writeFile(databasePath, JSON.stringify(this.#database))
+  }
+
+  select(table) {
+    // Checks in my empty array called database to see if [table] already exists. If it doesn't, it returns an empty array.
+    const data = this.#database[table] ?? []
+
+    return data
+  }
+
+  insert(table, data) {
+    // Checks if the table exists, and, if returns true, pushes the data into the array.
+    if (Array.isArray(this.#database[table])) {
+      this.#database[table].push(data)
+    } else { // Else, creates the table with the data received.
+      this.#database[table] = [data]
+    }
+
+    this.#persist()
+
+    return data
+  }
+}
