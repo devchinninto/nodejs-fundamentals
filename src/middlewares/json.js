@@ -16,7 +16,7 @@ export async function json(req, res) {
   // JSON.parse() deserializes string to JavaScript object
   try {
     req.body = JSON.parse(Buffer.concat(buffers).toString())
-    console.log(req.body)
+
   } catch {
     // Set req.body to null if JSON parsing fails (invalid or missing body)
     // Prevents downstream code from breaking when trying to access req.body properties
