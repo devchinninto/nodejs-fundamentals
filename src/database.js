@@ -18,9 +18,17 @@ export class Database {
     fs.writeFile(databasePath, JSON.stringify(this.#database))
   }
 
-  select(table) {
+  select(table, search) {
     // Checks in my empty array called database to see if [table] already exists. If it doesn't, it returns an empty array.
-    const data = this.#database[table] ?? []
+    let data = this.#database[table] ?? []
+
+    if (search) {
+      data = data.filter(row => {
+        return Object.entries(search).some(([key, value]) => {
+          return row[key].toLowerCase().includes(value.toLowerCase())
+        })
+      })
+    }
 
     return data
   }

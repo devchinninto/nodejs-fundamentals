@@ -15,7 +15,7 @@ export function buildRoutePath(path) {
 
   // Wrap in a RegExp with ^ anchor to match from the start of the URL path
   // The ^ ensures the match begins at the start of the string
-  const pathRegex = new RegExp(`^${pathWithParams}`)
+  const pathRegex = new RegExp(`^${pathWithParams}(?<query>\\?(.*))?$`)
 
   return pathRegex
 }

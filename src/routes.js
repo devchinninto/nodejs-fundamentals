@@ -9,7 +9,13 @@ export const routes = [
     method: 'GET',
     path: buildRoutePath('/users'),
     handler: (req, res) => {
-      const users = database.select('users')
+      const { search } = req.query
+      const users = database.select('users', search ? {
+        name: search,
+        email: search,
+      } : null)
+
+      console.log(req.query)
 
       // Early return: Immediately respond and exit the request handler
       // Prevents execution of subsequent if-statements (saves CPU cycles)
